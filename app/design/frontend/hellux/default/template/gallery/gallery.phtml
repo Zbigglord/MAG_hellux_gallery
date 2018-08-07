@@ -1,0 +1,72 @@
+<?php
+ /**
+  * Created by Zbigglord
+  * Date: 2017-04-14
+  * Time: 08:56
+  */
+
+$list = Hellux_Gallery_Model_Category::getList();
+ $iter = 0;
+ $biter = 0;
+ $gid = $this->getRequest()->getParam('gid');
+?>
+ <div class="page-header-holder">
+ <h3 class="main-header-h3">Galerie</h3>
+</div>
+<div class="product-view">
+ <?php if(isset($gid) && $gid != ''): ?>
+  <?php
+  $images = Hellux_Gallery_Model_Image::getImagesList($gid);
+  $gallery_size = count($images);
+  $gallery_title = Hellux_Gallery_Model_Category::getCatParam('category_title', $gid);
+  ?>
+  <div class = gallery-category-title>
+    <?=$gallery_title?>
+   </div>
+ <div class="row no-margin">
+
+  <?php foreach($images as $image): ?>
+
+   <div class="col-lg-4 smaller-padding">
+    <div class="gallery-image-holder">
+     <a href="<?=$image['image_path']?>" rel="fancybox" class="fancybox-a">
+      <img class="img-responsive" alt="<?=$image['image_alt']?>" title="<?=$image['image_title']?>" src="<?=$image['image_path']?>"/>
+     </a>
+    </div>
+   </div>
+   <?php $iter++; $biter++; ?>
+   <?php if(($iter == 3) || ($biter == $gallery_size)): ?>
+    </div>
+    <?php if($biter < $gallery_size): ?>
+    <div class="row no-margin">
+    <?php endif; ?>
+    <?php $iter=0; ?>
+   <?php endif; ?>
+
+  <?php endforeach; ?>
+
+  </div>
+ <?php else: ?>
+
+  <div class="row no-margin">
+   <?php foreach($list as $category): ?>
+    <div class="col-lg-4 smaller-padding">
+     <div class="gallery-category-holder">
+      <a href="<?=Mage::getBaseUrl()?>gallery?gid=<?=$category['category_id']?>">
+       <img class="img-responsive gallery-category-thumbnail" src="<?=$category['category_thumbnail']?>"  />
+      </a>
+      <p class="gallery-category-description"><?=$category['category_description']?></p>
+     </div>
+    </div>
+   <?php endforeach; ?>
+   <script type="text/javascript">
+
+    jq('.gallery-category-thumbnail').hover(function(){
+     jq(this).toggleClass('thumbnail-hovered');
+    });
+
+    </script>
+  </div>
+
+ <?php endif; ?>
+</div>

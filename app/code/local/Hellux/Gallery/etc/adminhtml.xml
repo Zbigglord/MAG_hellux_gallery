@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<menu>
+	<hellux translate="title" module="hellux_gallery">
+		<title>Hellux</title>
+		<sort_order>10</sort_order>
+		<!-- action>allegro/controller</action -->
+		<children>
+			<gallery translate="title">
+				<title>Gallery</title>
+				<sort_order>30</sort_order>
+					<children>
+						<category translate="title">
+							<title>Categories</title>
+							<action>adminhtml/category</action>
+							<sort_order>10</sort_order>
+						</category>
+					</children>
+					<children>
+						<image translate="title">
+							<title>Images</title>
+							<action>adminhtml/image</action>
+							<sort_order>20</sort_order>
+						</image>
+					</children>
+			</gallery>
+		</children>
+	</hellux>
+</menu>
+<acl>
+	<!--  You may want to deny access to some of pages for certain groups of backend users -->
+	<!--  Go to admin menu SYSTEM/PERMISSIONS/ROLES and go from there -->
+</acl>
+</config>
